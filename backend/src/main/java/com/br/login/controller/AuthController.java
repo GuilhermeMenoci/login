@@ -15,6 +15,7 @@ import com.br.login.dto.ResponseDTO;
 import com.br.login.entity.UserEntity;
 import com.br.login.infra.security.TokenService;
 import com.br.login.repository.UserRepository;
+import com.br.login.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,21 +30,17 @@ public class AuthController {
 	
 	private final TokenService tokenSerivce;
 	
+	private final UserService userService;
+	
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody LoginRequestDTO body){
+	public ResponseDTO login(@RequestBody LoginRequestDTO body){
 		
-		UserEntity user = this.repository.findByEmail(body.email()).orElseThrow(() -> new RuntimeException("User not found"));
-		if(passwordEncoder.matches(body.password(), user.getPassword())) {
-			String token = this.tokenSerivce.generateToken(user);
-			return ResponseEntity.ok(new ResponseDTO(user.getName(), token));
-		}
-		
-		return ResponseEntity.badRequest().build();
+		return userService.login(body);
 		
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity<?> register(@RequestBody RegisterRequestDTO body){
+	public ResponseEntity<ResponseDTO> register(@RequestBody RegisterRequestDTO body){
 		
 		Optional<UserEntity> user = this.repository.findByEmail(body.email());
 		if(user.isEmpty()) {
