@@ -12,6 +12,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.br.login.entity.UserEntity;
+import com.br.login.exception.NotAuthorizedException;
 
 @Service
 public class TokenService {
@@ -33,7 +34,7 @@ public class TokenService {
 					.sign(algorithm);
 			
 		} catch (JWTCreationException e) {
-			throw new RuntimeException("Error while authenticating");
+			throw new NotAuthorizedException("Error while authenticating");
 		}
 		
 		
