@@ -13,7 +13,7 @@ import com.br.login.dto.LoginRequestDTO;
 import com.br.login.dto.RegisterRequestDTO;
 import com.br.login.dto.ResponseDTO;
 import com.br.login.entity.UserEntity;
-import com.br.login.infra.TokenService;
+import com.br.login.infra.security.TokenService;
 import com.br.login.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;

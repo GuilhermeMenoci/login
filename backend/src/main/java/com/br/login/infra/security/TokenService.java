@@ -1,4 +1,4 @@
-package com.br.login.infra;
+package com.br.login.infra.security;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
